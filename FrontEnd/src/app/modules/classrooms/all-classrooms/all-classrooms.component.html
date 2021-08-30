@@ -1,0 +1,8 @@
+<hr />
+<h2>Listado de las clases</h2>
+<div class="card" *ngFor="let clase of clases">
+	<div class="card-body">
+		<h5 class="card-title">Clase: {{ clase.id }}</h5>
+		<a [routerLink]="[clase.id]" class="card-link">Ver Información</a>
+	</div>
+</div>

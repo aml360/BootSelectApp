@@ -1,0 +1,18 @@
+{
+	"appId": "com.bootselect.app",
+	"appName": "BootSelect",
+	"bundledWebRuntime": false,
+	"npmClient": "npm",
+	"webDir": "dist/FrontEnd",
+	"server": {
+		"url": "http://ip.aml360esp.com:82",
+		"cleartext": true
+	},
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 0
+		}
+	},
+	"cordova": {},
+	"linuxAndroidStudioPath": "/home/amli/Descargas/android-studio/bin/studio.sh"
+}

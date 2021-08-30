@@ -1,0 +1,10 @@
+stages:
+  - build
+build:
+  only:
+    refs:
+      - master
+  stage: build
+  script:
+    - cd ./scripts
+    - ./build_multi-stage.sh

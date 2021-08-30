@@ -1,0 +1,37 @@
+<div id="sidebar" class="page-sidebar" [ngClass]="clase">
+	<div class="sidebar-fixed">
+		<header class="site-header">
+			<a routerLink="/">
+				<div class="site-logo">
+					<img src="https://www.e-itaca.es/images/logos_web/logo-600.png" alt="IACS" />
+				</div>
+			</a>
+			<!--ICONO BARRA DESPLEGABLE-->
+
+			<div class="sidebar-mobile-menu visible-xs">
+				<a data-target="#side-nav" data-toggle="collapse" class="mobile-menu-icon" href="#">
+					<em class="icon-menu"></em>
+				</a>
+			</div>
+		</header>
+		<!--/ICONO BARRA DESPLEGABLE-->
+
+		<ul id="side-nav" class="main-menu navbar-collapse collapse">
+			<li>
+				<a routerLinkActive="active-route" routerLink="/classrooms">
+					<span class="title">Clases</span>
+				</a>
+			</li>
+			<li>
+				<a routerLinkActive="active-route" routerLink="/teachers">
+					<span class="title">Profesores</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<div>
+	<div class="sidebar-collapse hidden-xs">
+		<span class="material-icons show-menu" (click)="collapseSideMenu()">menu</span>
+	</div>
+</div>

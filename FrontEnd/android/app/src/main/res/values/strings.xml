@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">BootSelect</string>
+    <string name="title_activity_main">BootSelect</string>
+    <string name="package_name">com.bootselect.app</string>
+    <string name="custom_url_scheme">com.bootselect.app</string>
+</resources>

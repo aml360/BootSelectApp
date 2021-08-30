@@ -1,0 +1,42 @@
+<hr />
+<button
+	class="btn btn-primary"
+	type="button"
+	data-bs-toggle="modal"
+	[attr.data-bs-target]="'#' + childrenIds.newTeacherId"
+>
+	<p>Añadir un profesor</p>
+</button>
+<div class="accordion" id="accordionExample">
+	<div class="accordion-body">
+		<div class="accordion-item" *ngFor="let teacher of teachers; let i = index">
+			<h2 class="accordion-header" [id]="'headingTeach ' + i">
+				<button
+					class="accordion-button collapsed"
+					type="button"
+					data-bs-toggle="collapse"
+					[attr.data-bs-target]="'#collTeacher' + i"
+					aria-expanded="false"
+					[attr.aria-controls]="'collTeacher' + i"
+				>
+					{{ teacher.name }}
+				</button>
+			</h2>
+			<div
+				[id]="'collTeacher' + i"
+				class="accordion-collapse collapse"
+				[attr.aria-labelledby]="'headingTeach' + i"
+				data-bs-parent="#accordionExample"
+			>
+				<div class="accordion-body">
+					Nombre y apellidos: {{ teacher.name }} {{ teacher.lastname }} <br />
+					{{ teacher.email }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<app-new-teacher
+	[modalId]="childrenIds.newTeacherId"
+	(onTeacherSaved)="onSaveNewAdmin($event)"
+></app-new-teacher>
