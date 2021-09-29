@@ -2,7 +2,7 @@
 GO_TO=$(dirname "$0")
 cd $GO_TO
 
-REMOTE=neo3@ip.aml360esp.com
+REMOTE=neo3@192.168.1.12
 
 cd ../
 docker save -o bootselectbackend.tar bootselectbackend

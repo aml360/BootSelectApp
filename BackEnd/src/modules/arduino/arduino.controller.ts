@@ -1,20 +1,9 @@
 import { Controller, Get, InternalServerErrorException, NotFoundException, Param } from '@nestjs/common';
 import { PcRepo } from '../computer/ordenadores.repository';
 import { ArduinoService } from './arduino.service';
-import {
-	Interval,
-	getDay,
-	setDay,
-	setDayOfYear,
-	setMonth,
-	setYear,
-	getMonth,
-	getYear,
-	isWithinInterval,
-	addDays,
-	addBusinessDays,
-} from 'date-fns';
+import { Interval, isWithinInterval, addDays } from 'date-fns';
 import { Disk } from 'src/entity';
+import e from 'express';
 
 export type ArduinoTimesDTO = { id: number; activeNow: boolean };
 @Controller('api/arduino')
@@ -32,21 +21,29 @@ export class ArduinoController {
 			throw new InternalServerErrorException(`Contact with a programmer`);
 		}
 		const discoPrueba = pc.discos[0]!;
-		console.log(discoPrueba.bootUp, discoPrueba.shutdown);
+		// console.log(discoPrueba.bootUp, discoPrueba.shutdown);
 		const now = new Date();
 		const result = pc.discos.reduce<string>((acc, disk: Disk) => {
 			const diskInterval: Interval = { start: disk.bootUp, end: disk.shutdown };
+			// console.log(`Disk interval`, diskInterval);
+
 			let isBooted: boolean = false;
 			try {
 				isBooted = isWithinInterval(now, diskInterval);
 			} catch (error) {
+				console.log();
+				if(diskInterval.start<now){
 				diskInterval.end = addDays(diskInterval.end, 1);
+				}else{
+				diskInterval.start = addDays(diskInterval.start, -1);
+				}
+				// diskInterval.start = addDays(diskInterval.start, -1);
+				console.log(`Disk interval`, diskInterval, 'now', now);
 				isBooted = isWithinInterval(now, diskInterval);
 			}
 			acc = acc.concat(`${disk.id}${isBooted ? 1 : 0}`);
 			return acc;
 		}, '');
-
 
 		return result.concat('f');
 	}

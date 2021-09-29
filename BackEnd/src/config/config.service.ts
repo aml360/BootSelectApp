@@ -28,6 +28,7 @@ export class ConfigService {
 			}
 		}
 	}
+
 	/**
 	 * Gets the requested env variable
 	 * @param key The env var name

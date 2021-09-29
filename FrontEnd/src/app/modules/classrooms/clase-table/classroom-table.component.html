@@ -2,55 +2,54 @@
 <div>
 	<h5>Ordenadores de la clase {{ classId }}</h5>
 </div>
-<div class="accordion" id="accordionExample">
-	<div *ngFor="let ordenador of ordenadores" class="accordion-item">
+<div class="accordion" id="accordionComputer">
+	<div *ngFor="let ordenador of ordenadores; let i = index" class="accordion-item">
 		<h5 class="accordion-header">
 			<button
-				class="accordion-button"
+				class="accordion-button collapsed"
 				type="button"
 				data-bs-toggle="collapse"
-				data-bs-target="#collapseOne"
-				aria-expanded="true"
-				aria-controls="collapseOne"
+				[attr.data-bs-target]="'#collDisk' + i"
+				[attr.aria-controls]="'collDisk' + i"
 			>
 				Ordenador: {{ ordenador.id }} <br />
 				IP:{{ ordenador.ip }}
 			</button>
 		</h5>
 		Discos:
-		<div
+		<!-- <div
 			id="collapseOne"
 			class="accordion-collapse collapse show"
 			aria-labelledby="headingOne"
-			data-bs-parent="#accordionExample"
+			data-bs-parent="#accordionComputer"
+		> -->
+		<div
+			[id]="'collDisk' + i"
+			class="accordion-collapse collapse"
+			aria-labelledby="headingOne"
+			data-bs-parent="#accordionComputer"
 		>
-			<div
-				id="collapseOne"
-				class="accordion-collapse collapse show"
-				aria-labelledby="headingOne"
-				data-bs-parent="#accordionExample"
-			>
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item" *ngFor="let disco of ordenador.discos; let i = index">
-						<div class="card-header">{{ i + 1 }} Descripción: {{ disco.description }}</div>
-						<p class="card-text">
-							Inicio:
-							<input [ngxTimepicker]="picker" [format]="24" [value]="formatTime(disco.bootUp)" />
-							<ngx-material-timepicker
-								#picker
-								(timeSet)="persistTime(disco, $event, true)"
-							></ngx-material-timepicker>
-							<br />
-							Fin:
-							<input [ngxTimepicker]="picker2" [format]="24" [value]="formatTime(disco.shutdown)" />
-							<ngx-material-timepicker
-								#picker2
-								(timeSet)="persistTime(disco, $event, false)"
-							></ngx-material-timepicker>
-						</p>
-					</li>
-				</ul>
-			</div>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item" *ngFor="let disco of ordenador.discos; let i = index">
+					<div class="card-header">{{ i + 1 }} Descripción: {{ disco.description }}</div>
+					<p class="card-text">
+						Inicio:
+						<input [ngxTimepicker]="picker" [format]="24" [value]="formatTime(disco.bootUp)" />
+						<ngx-material-timepicker
+							#picker
+							(timeSet)="persistTime(disco, $event, true)"
+						></ngx-material-timepicker>
+						<br />
+						Fin:
+						<input [ngxTimepicker]="picker2" [format]="24" [value]="formatTime(disco.shutdown)" />
+						<ngx-material-timepicker
+							#picker2
+							(timeSet)="persistTime(disco, $event, false)"
+						></ngx-material-timepicker>
+					</p>
+				</li>
+			</ul>
 		</div>
+		<!-- </div> -->
 	</div>
 </div>

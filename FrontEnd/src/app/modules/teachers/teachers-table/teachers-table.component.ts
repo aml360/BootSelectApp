@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { IAdminAddDTO, IProfesorDTO } from 'sharedInterfaces/DTO';
 import { IUser } from 'sharedInterfaces/Entities';
-import { TeacherService } from 'src/app/services';
+import { UserService } from 'src/app/services';
 
 @Component({
 	selector: 'app-teachers-table',
@@ -9,7 +10,9 @@ import { TeacherService } from 'src/app/services';
 	styleUrls: ['./teachers-table.component.scss'],
 })
 export class TeachersTableComponent implements OnInit {
-	constructor(private teacherSrv: TeacherService) {}
+	constructor(private userSv: UserService) {}
+
+	closeChildrenModal = new Subject<true>();
 
 	childrenIds = {
 		newTeacherId: 'newTeacherModal',
@@ -18,11 +21,14 @@ export class TeachersTableComponent implements OnInit {
 	teacherToAdd: IProfesorDTO | undefined;
 
 	async ngOnInit(): Promise<void> {
-		this.teachers = await this.teacherSrv.getTeachers();
-		console.log(this.teachers);
+		this.teachers = await this.userSv.getAdmins();
 	}
 
-	onSaveNewAdmin(admin: IAdminAddDTO) {
-		console.log(admin);
+	async onSaveNewAdmin(admin: IAdminAddDTO) {
+		const registered = await this.userSv.registerAdmin(admin);
+		if (registered) {
+			this.closeChildrenModal.next(true);
+			this.teachers = await this.userSv.getAdmins();
+		}
 	}
 }

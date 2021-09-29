@@ -83,8 +83,21 @@ void setup()
 	const char *password = PASSWORD;
 	Serial.println("Setup");
 	WiFi.begin(ssid, password);
+	int count = 0;
 	while (WiFi.status() != WL_CONNECTED)
-		;
+	{
+		if (count > 0)
+		{
+			WiFi.reconnect();
+		}
+		delay(4000);
+	};
+	if (!WiFi.isConnected())
+	{
+		Serial.println("Disconnected!");
+		WiFi.reconnect();
+		WiFi.waitForConnectResult();
+	}
 	// delete ssid;
 	// delete password;
 	Serial.println("Wifi connected");

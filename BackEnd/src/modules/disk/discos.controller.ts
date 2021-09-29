@@ -16,8 +16,8 @@ export class DiscosController {
 		if (!diskToUpdate) {
 			throw new NotFoundException('No existe ningun disco con ese id');
 		}
-		diskToUpdate.bootUp = disk.bootUp;
-		diskToUpdate.shutdown = disk.shutdown;
+		diskToUpdate.bootUp = new Date(disk.bootUp);
+		diskToUpdate.shutdown = new Date(disk.shutdown);
 		await this.diskRepo.save(diskToUpdate);
 		return true;
 	}

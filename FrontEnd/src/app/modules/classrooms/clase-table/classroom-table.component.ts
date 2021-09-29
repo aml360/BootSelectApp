@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IClassroomInfoGetDTO, IComputerGetDTO, IDiskUpdateDTO } from 'sharedInterfaces/DTO';
-import { IDisk } from 'sharedInterfaces/Entities';
 import { ClassService, DiskService } from 'src/app/services';
 
 // TODO: Refactor Component and remove all identifiers with spanish naming, change to english ones.
@@ -22,16 +21,15 @@ export class ClassroomTableComponent implements OnInit {
 	ordenadores: IComputerGetDTO[] = [];
 
 	async ngOnInit() {
-		// TODO: Change name to classroom
 		this.classInfo = await this.classService.getClassInfo(this.classId);
 		this.ordenadores = this.classInfo.ordenadores;
-		// I did this because Dates come as strings, with the interceptor is not necessary.
-		this.ordenadores.forEach(pc =>
-			pc.discos.forEach(disk => {
-				disk.bootUp = new Date(disk.bootUp);
-				disk.shutdown = new Date(disk.shutdown);
-			}),
-		);
+		// this.ordenadores.forEach(pc =>
+		// 	pc.discos.forEach(disk => {
+		// 		disk.bootUp = new Date(disk.bootUp);
+		// 		disk.shutdown = new Date(disk.shutdown);
+		// 	}),
+		// );
+		console.log(this.ordenadores);
 	}
 
 	// TODO: TSdoc in english

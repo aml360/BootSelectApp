@@ -16,10 +16,10 @@ export class AuthGuard {
 		}
 		try {
 			verify(token, secret);
+			return true;
 		} catch (error) {
 			return false;
 		}
-		return true;
 	}
 }
 class JwtOptions implements JwtVerifyOptions {
